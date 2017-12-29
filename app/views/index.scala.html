@@ -1,98 +1,32 @@
-@(userForm: Form[model.UserFormData],users : Seq[model.User])(implicit request: RequestHeader)
+@(valueForm: Form[model.ValueFormData],values : Seq[model.Value])(implicit request: RequestHeader)
 @main() {
 
-    <form id="user-data-form" role="form" action='@routes.ApplicationController.addUser()' method="post" class="form-horizontal" align="center" autocomplete="off">
+    <form id="value-data-form" role="form" action='@routes.ApplicationController.addValue()' method="post" class="form-horizontal" align="center" autocomplete="off">
 
-        <fieldset class="user-fieldset">
+        <fieldset class="value-fieldset">
 
-            <div class="user-form">
+            <div class="value-form">
                 <label class="form-title" style="color: #F8741B; font-size: 22px;font-weight: bold; text-decoration:none">title</label>
             </div>
             <br/>
             <table align="center" cellspacing="20">
                 <tr>
                     <td align="left">
-                        <div class="user-form" id="firstName_field_label">
+                        <div class="value-form" id="stringValue_field_label">
                             <div class="controls col-xs-offset-3 col-xs-9">
                                 <div class="input-group">
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                                    <strong>firstname</strong> :
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-value"></span></span>
+                                    <strong>stringValue</strong> :
                                 </div>
                             </div>
                         </div>
                     </td>
                     <td align="center">
-                        <div class="user-form" id="firstName_field_value">
+                        <div class="value-form" id="stringValue_field_value">
                             <div class="controls col-xs-offset-3 col-xs-9">
                                 <div class="input-group">
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                                    <input type="text" id="firstName" name="firstName" value="" placeholder="First Name" class="form-control input-lg" required>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="left">
-                        <div class="user-form" id="lastName_field_label">
-                            <div class="controls col-xs-offset-3 col-xs-9">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                                    <strong>lastname</strong> :
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    <td align="center">
-                        <div class="user-form" id="lastName_field_value">
-                            <div class="controls col-xs-offset-3 col-xs-9">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                                    <input type="text" id="lastName" name="lastName" value="" placeholder="Last Name" class="form-control input-lg" required>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="left">
-                        <div class="user-form" id="mobile_field_label">
-                            <div class="controls col-xs-offset-3 col-xs-9">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                                    <strong>mobile</strong> :
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    <td align="center">
-                        <div class="user-form" id="mobile_field_value">
-                            <div class="controls col-xs-offset-3 col-xs-9">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                                    <input type="tel" id="mobile" name="mobile" placeholder="Mobile" class="form-control input-lg" required>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="left">
-                        <div class="user-form" id="email_field_label">
-                            <div class="controls col-xs-offset-3 col-xs-9">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                                    <strong>email</strong> :
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    <td align="center">
-                        <div class="user-form" id="email_field_value">
-                            <div class="controls col-xs-offset-3 col-xs-9">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                                    <input type="email" id="email" name="email" placeholder="Email" class="form-control input-lg" required>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-value"></span></span>
+                                    <input type="text" id="stringValue" name="stringValue" value="" placeholder="String Value" class="form-control input-lg" required>
                                 </div>
                             </div>
                         </div>
@@ -107,25 +41,19 @@
         </fieldset>
     </form>
 
-    <div class="user-display" >
+    <div class="value-display" >
         <fieldset>
-            <legend align="center"><h3>Registered Users</h3></legend>
+            <legend align="center"><h3>Registered Values</h3></legend>
             <table cellspacing="20">
                 <tr>
-                    <th>userid</th>
-                    <th>firstname</th>
-                    <th>lastname</th>
-                    <th>mobile</th>
-                    <th>email</th>
+                    <th>valueid</th>
+                    <th>stringValue</th>
                 </tr>
-                @for(user <- users){
+                @for(value <- values){
                     <tr>
-                        <td>@user.id</td>
-                        <td>@user.firstName</td>
-                        <td>@user.lastName</td>
-                        <td>@user.mobile</td>
-                        <td>@user.email</td>
-                        <td><a href="@routes.ApplicationController.deleteUser(user.id)">delete</a></td>
+                        <td>@value.id</td>
+                        <td>@value.stringValue</td>
+                        <td><a href="@routes.ApplicationController.deleteValue(value.id)">delete</a></td>
                     </tr>
                 }
             </table>

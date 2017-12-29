@@ -1,4 +1,4 @@
-name := """slick3play"""
+name := """valuesPersister"""
 
 version := "1.0-SNAPSHOT"
 
@@ -20,3 +20,10 @@ resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 // Play provides two styles of routers, one expects its actions to be injected, the
 // other, legacy style, accesses its actions statically.
 routesGenerator := InjectedRoutesGenerator
+
+
+// setting a maintainer which is used for all packaging types
+maintainer:= "Oleg"
+// exposing the play ports
+dockerExposedPorts in Docker := Seq(9000)
+// run this with: docker run -p 9000:9000 <name>:<version>

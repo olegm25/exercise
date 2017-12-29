@@ -1,33 +1,33 @@
 package controllers
 
-import model.{User, UserForm}
+import model.{Value, ValueForm}
 import play.api.mvc._
 import scala.concurrent.Future
-import service.UserService
+import service.PersistanceService
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class ApplicationController extends Controller {
 
   def index = Action.async { implicit request =>
-    UserService.listAllUsers map { users =>
-      Ok(views.html.index(UserForm.form, users))
+    PersistanceService.listAllValues map { values =>
+      Ok(views.html.index(ValueForm.form, values))
     }
   }
 
-  def addUser() = Action.async { implicit request =>
-    UserForm.form.bindFromRequest.fold(
+  def addValue() = Action.async { implicit request =>
+    ValueForm.form.bindFromRequest.fold(
       // if any error in submitted data
-      errorForm => Future.successful(Ok(views.html.index(errorForm, Seq.empty[User]))),
+      errorForm => Future.successful(Ok(views.html.index(errorForm, Seq.empty[Value]))),
       data => {
-        val newUser = User(0, data.firstName, data.lastName, data.mobile, data.email)
-        UserService.addUser(newUser).map(res =>
+        val newValue = Value(0, data.stringValue)
+        PersistanceService.addValue(newValue).map(res =>
           Redirect(routes.ApplicationController.index())
         )
       })
   }
 
-  def deleteUser(id: Long) = Action.async { implicit request =>
-    UserService.deleteUser(id) map { res =>
+  def deleteValue(id: Long) = Action.async { implicit request =>
+    PersistanceService.deleteValue(id) map { res =>
       Redirect(routes.ApplicationController.index())
     }
   }

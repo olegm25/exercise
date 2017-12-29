@@ -4,8 +4,8 @@
 
 # Home page
 GET     /                           controllers.ApplicationController.index
-POST    /add                        controllers.ApplicationController.addUser
-GET     /delete/:id                 controllers.ApplicationController.deleteUser(id : Long)
+POST    /add                        controllers.ApplicationController.addValue
+GET     /delete/:id                 controllers.ApplicationController.deleteValue(id : Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
