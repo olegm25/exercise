@@ -31,7 +31,7 @@ class ValueTableDef(tag: Tag) extends Table[Value](tag, "persisted_values") {
     (id, stringValue) <>(Value.tupled, Value.unapply)
 }
 
-object Values {
+object DbValuesRepo {
 
   val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
 

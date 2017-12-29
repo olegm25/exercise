@@ -1,23 +1,37 @@
 package service
 
-import model.{Value, Values}
+import com.google.inject.ImplementedBy
+import model.{DbValuesRepo, Value}
+
 import scala.concurrent.Future
 
-object PersistanceService {
+@ImplementedBy(classOf[DbPersistanceService])
+trait PersistanceService {
+
+  def addValue(value: Value): Future[String]
+
+  def deleteValue(id: Long): Future[Int]
+
+  def getValue(id: Long): Future[Option[Value]]
+
+  def listAllValues: Future[Seq[Value]]
+}
+
+class DbPersistanceService extends PersistanceService {
 
   def addValue(value: Value): Future[String] = {
-    Values.add(value)
+    DbValuesRepo.add(value)
   }
 
   def deleteValue(id: Long): Future[Int] = {
-    Values.delete(id)
+    DbValuesRepo.delete(id)
   }
 
   def getValue(id: Long): Future[Option[Value]] = {
-    Values.get(id)
+    DbValuesRepo.get(id)
   }
 
   def listAllValues: Future[Seq[Value]] = {
-    Values.listAll
+    DbValuesRepo.listAll
   }
 }

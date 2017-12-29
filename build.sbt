@@ -12,7 +12,8 @@ libraryDependencies ++= Seq(
   specs2 % Test,
   "mysql" % "mysql-connector-java" % "5.1.34",
   "com.typesafe.play" %% "play-slick" % "1.1.0",
-  "com.typesafe.play" %% "play-slick-evolutions" % "1.1.0"
+  "com.typesafe.play" %% "play-slick-evolutions" % "1.1.0",
+  "com.h2database" % "h2" % "1.4.196"
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
@@ -21,8 +22,8 @@ resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 // other, legacy style, accesses its actions statically.
 routesGenerator := InjectedRoutesGenerator
 
+javaOptions in Test += "-Dconfig.file=conf/application.test.conf"
 
-// setting a maintainer which is used for all packaging types
 dockerRepository := Some("olegm25")
 maintainer:= "Oleg"
 // exposing the play ports
